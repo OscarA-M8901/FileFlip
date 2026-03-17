@@ -1,8 +1,11 @@
 [phases.setup]
-nixPkgs = ["libreoffice", "poppler_utils", "ffmpeg", "python311", "python311Packages.pip"]
+nixPkgs = ["libreoffice", "poppler_utils", "ffmpeg"]
 
 [phases.install]
-cmds = ["python3.11 -m pip install -r requirements.txt"]
+cmds = ["pip install -r requirements.txt"]
 
 [start]
-cmd = "python3.11 -m gunicorn server:app --bind 0.0.0.0:$PORT --workers 2 --timeout 120"
+cmd = "gunicorn server:app --bind 0.0.0.0:$PORT --workers 2 --timeout 120"
+
+[variables]
+NIXPACKS_PYTHON_VERSION = "3.11"
