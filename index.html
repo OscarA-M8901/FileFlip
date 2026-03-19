@@ -758,6 +758,9 @@
     document.getElementById('resultBox').classList.remove('visible', 'error');
     document.getElementById('progressWrap').classList.remove('visible');
     document.getElementById('progressFill').style.width = '0%';
+    const downloadBtn = document.getElementById('downloadBtn');
+    downloadBtn.href = '#';
+    downloadBtn.removeAttribute('download');
   }
 
   function formatSize(bytes) {
