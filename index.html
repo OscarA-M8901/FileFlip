@@ -657,6 +657,22 @@
       <div class="drop-sub" id="acceptHint">Accepts .jpg, .jpeg, .png</div>
     </div>
 
+    <div id="resizeFields" style="display:none; gap:12px; margin-top:1rem;">
+      <div style="display:flex; gap:12px; align-items:center;">
+        <div style="flex:1;">
+          <label style="font-size:0.8rem; color:var(--gray-600); display:block; margin-bottom:4px;">Width (px)</label>
+          <input type="number" id="resizeWidth" placeholder="e.g. 1920" min="1" max="10000"
+            style="width:100%; padding:0.6rem 0.75rem; border:1px solid var(--gray-200); border-radius:var(--radius-sm); font-family:var(--font); font-size:0.875rem;" />
+        </div>
+        <div style="flex:1;">
+          <label style="font-size:0.8rem; color:var(--gray-600); display:block; margin-bottom:4px;">Height (px)</label>
+          <input type="number" id="resizeHeight" placeholder="e.g. 1080" min="1" max="10000"
+            style="width:100%; padding:0.6rem 0.75rem; border:1px solid var(--gray-200); border-radius:var(--radius-sm); font-family:var(--font); font-size:0.875rem;" />
+        </div>
+      </div>
+      <p style="font-size:0.75rem; color:var(--gray-400);">Leave one blank to maintain aspect ratio.</p>
+    </div>
+
     <div class="file-selected" id="fileSelected">
       <div class="file-icon">📎</div>
       <div class="file-info">
@@ -727,25 +743,57 @@
       label: 'JPG ↔ PNG',
       accept: '.jpg,.jpeg,.png',
       hint: 'Accepts .jpg, .jpeg, .png',
-      endpoint: '/convert/image'
+      endpoint: '/convert/image',
+      hasResize: false
+    },
+    'image-pdf': {
+      label: 'Image → PDF',
+      accept: '.jpg,.jpeg,.png,.webp',
+      hint: 'Accepts .jpg, .jpeg, .png, .webp',
+      endpoint: '/convert/image-to-pdf',
+      hasResize: false
+    },
+    'heic-jpg': {
+      label: 'HEIC → JPG',
+      accept: '.heic,.heif',
+      hint: 'Accepts .heic, .heif',
+      endpoint: '/convert/heic-to-jpg',
+      hasResize: false
     },
     'pdf-docx': {
       label: 'PDF ↔ DOCX',
       accept: '.pdf,.docx',
       hint: 'Accepts .pdf, .docx',
-      endpoint: '/convert/document'
+      endpoint: '/convert/document',
+      hasResize: false
     },
     'pdf-jpg': {
       label: 'PDF → JPG',
       accept: '.pdf',
       hint: 'Accepts .pdf',
-      endpoint: '/convert/pdf-to-jpg'
+      endpoint: '/convert/pdf-to-jpg',
+      hasResize: false
+    },
+    'mov-mp4': {
+      label: 'MOV → MP4',
+      accept: '.mov,.avi,.mkv,.webm,.flv',
+      hint: 'Accepts .mov, .avi, .mkv, .webm',
+      endpoint: '/convert/mov-to-mp4',
+      hasResize: false
     },
     'mp4-mp3': {
       label: 'MP4 → MP3',
       accept: '.mp4,.mov,.avi,.mkv',
       hint: 'Accepts .mp4, .mov, .avi, .mkv',
-      endpoint: '/convert/audio'
+      endpoint: '/convert/audio',
+      hasResize: false
+    },
+    'resize': {
+      label: 'Image Resizer',
+      accept: '.jpg,.jpeg,.png,.webp',
+      hint: 'Accepts .jpg, .jpeg, .png, .webp',
+      endpoint: '/convert/resize',
+      hasResize: true
     }
   };
 
@@ -761,6 +809,7 @@
     document.getElementById('panelLabel').textContent = cfg.label;
     document.getElementById('fileInput').accept = cfg.accept;
     document.getElementById('acceptHint').textContent = cfg.hint;
+    document.getElementById('resizeFields').style.display = cfg.hasResize ? 'block' : 'none';
 
     clearFile();
     resetResult();
@@ -808,6 +857,16 @@
     if (!selectedFile || !activeConverter) return;
 
     const cfg = converters[activeConverter];
+
+    if (cfg.hasResize) {
+      const w = parseInt(document.getElementById('resizeWidth').value || 0);
+      const h = parseInt(document.getElementById('resizeHeight').value || 0);
+      if (!w && !h) {
+        alert('Please enter a width or height to resize to.');
+        return;
+      }
+    }
+
     const btn = document.getElementById('convertBtn');
     btn.disabled = true;
     btn.innerHTML = '<span class="spinner"></span>Converting…';
@@ -832,6 +891,12 @@
 
     const formData = new FormData();
     formData.append('file', selectedFile);
+    if (cfg.hasResize) {
+      const w = document.getElementById('resizeWidth').value;
+      const h = document.getElementById('resizeHeight').value;
+      if (w) formData.append('width', w);
+      if (h) formData.append('height', h);
+    }
 
     try {
       const response = await fetch(cfg.endpoint, {
