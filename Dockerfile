@@ -1,13 +1,9 @@
 FROM python:3.11-slim
 
 RUN apt-get update && apt-get install -y \
-    default-jre \
-    libreoffice-writer \
-    libreoffice-calc \
-    libreoffice-impress \
-    libreoffice-java-common \
     poppler-utils \
     ffmpeg \
+    libreoffice \
     && rm -rf /var/lib/apt/lists/*
 
 WORKDIR /app
