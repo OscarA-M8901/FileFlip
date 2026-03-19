@@ -11,7 +11,6 @@ app = Flask(__name__, static_folder='.', static_url_path='')
 CORS(app)
 
 UPLOAD_FOLDER = tempfile.mkdtemp()
-MAX_FILE_SIZE = 50 * 1024 * 1024  # 50MB
 
 @app.route('/')
 def index():
@@ -32,21 +31,18 @@ def convert_image():
     file.save(input_path)
 
     try:
-        img = Image.open(input_path).convert('RGBA')
-
+        img = Image.open(input_path)
         if ext in ['.jpg', '.jpeg']:
             out_ext = '.png'
             out_path = os.path.join(UPLOAD_FOLDER, f'{uuid.uuid4()}.png')
-            img.save(out_path, 'PNG')
+            img.convert('RGBA').save(out_path, 'PNG')
         else:
             out_ext = '.jpg'
             out_path = os.path.join(UPLOAD_FOLDER, f'{uuid.uuid4()}.jpg')
-            img = img.convert('RGB')
-            img.save(out_path, 'JPEG', quality=92)
+            img.convert('RGB').save(out_path, 'JPEG', quality=92)
 
         out_name = Path(file.filename).stem + out_ext
         return send_file(out_path, as_attachment=True, download_name=out_name)
-
     except Exception as e:
         return jsonify({'error': f'Image conversion failed: {str(e)}'}), 500
     finally:
@@ -63,28 +59,29 @@ def convert_document():
     if ext not in ['.pdf', '.docx']:
         return jsonify({'error': 'Please upload a PDF or DOCX file.'}), 400
 
-    input_path = os.path.join(UPLOAD_FOLDER, f'{uuid.uuid4()}{ext}')
+    uid = str(uuid.uuid4())
+    input_path = os.path.join(UPLOAD_FOLDER, f'{uid}{ext}')
     file.save(input_path)
 
-    try:
-        if ext == '.pdf':
-            out_ext = 'docx'
-        else:
-            out_ext = 'pdf'
+    out_ext = 'docx' if ext == '.pdf' else 'pdf'
+    out_path = os.path.join(UPLOAD_FOLDER, f'{uid}.{out_ext}')
 
+    try:
         result = subprocess.run(
             ['soffice', '--headless', '--convert-to', out_ext,
              '--outdir', UPLOAD_FOLDER, input_path],
-            capture_output=True, text=True, timeout=60
+            capture_output=True, text=True, timeout=120,
+            env={**os.environ, 'HOME': '/tmp', 'TMPDIR': '/tmp'}
         )
 
-        if result.returncode != 0:
-            return jsonify({'error': 'Document conversion failed. Please check your file and try again.'}), 500
+        app.logger.info(f"soffice stdout: {result.stdout}")
+        app.logger.info(f"soffice stderr: {result.stderr}")
 
-        out_path = os.path.join(UPLOAD_FOLDER, Path(input_path).stem + f'.{out_ext}')
+        if result.returncode != 0 or not os.path.exists(out_path):
+            return jsonify({'error': f'Document conversion failed. {result.stderr[:200]}'}), 500
+
         out_name = Path(file.filename).stem + f'.{out_ext}'
         return send_file(out_path, as_attachment=True, download_name=out_name)
-
     except subprocess.TimeoutExpired:
         return jsonify({'error': 'Conversion timed out. Try a smaller file.'}), 500
     except Exception as e:
@@ -105,7 +102,6 @@ def convert_pdf_to_jpg():
 
     input_path = os.path.join(UPLOAD_FOLDER, f'{uuid.uuid4()}.pdf')
     file.save(input_path)
-
     out_prefix = os.path.join(UPLOAD_FOLDER, f'{uuid.uuid4()}_page')
 
     try:
@@ -120,21 +116,21 @@ def convert_pdf_to_jpg():
         import glob, zipfile, io
         pages = sorted(glob.glob(f'{out_prefix}*.jpg'))
 
+        if not pages:
+            return jsonify({'error': 'No pages found in PDF.'}), 500
+
         if len(pages) == 1:
             out_name = Path(file.filename).stem + '.jpg'
             return send_file(pages[0], as_attachment=True, download_name=out_name)
 
-        # Multiple pages → zip
         zip_buffer = io.BytesIO()
         stem = Path(file.filename).stem
         with zipfile.ZipFile(zip_buffer, 'w', zipfile.ZIP_DEFLATED) as zf:
             for i, page_path in enumerate(pages, 1):
                 zf.write(page_path, f'{stem}_page{i}.jpg')
         zip_buffer.seek(0)
-        out_name = stem + '_pages.zip'
         return send_file(zip_buffer, mimetype='application/zip',
-                         as_attachment=True, download_name=out_name)
-
+                         as_attachment=True, download_name=stem + '_pages.zip')
     except subprocess.TimeoutExpired:
         return jsonify({'error': 'Conversion timed out. Try a smaller file.'}), 500
     except Exception as e:
@@ -155,22 +151,23 @@ def convert_audio():
 
     input_path = os.path.join(UPLOAD_FOLDER, f'{uuid.uuid4()}{ext}')
     file.save(input_path)
-
     out_path = os.path.join(UPLOAD_FOLDER, f'{uuid.uuid4()}.mp3')
 
     try:
         result = subprocess.run(
             ['ffmpeg', '-i', input_path, '-vn',
-             '-acodec', 'libmp3lame', '-q:a', '2', out_path, '-y'],
+             '-acodec', 'libmp3lame', '-q:a', '2',
+             '-y', out_path],
             capture_output=True, text=True, timeout=120
         )
 
-        if result.returncode != 0:
-            return jsonify({'error': 'Audio extraction failed. Make sure your video has an audio track.'}), 500
+        app.logger.info(f"ffmpeg stderr: {result.stderr[-500:]}")
+
+        if result.returncode != 0 or not os.path.exists(out_path):
+            return jsonify({'error': f'Audio extraction failed. Make sure your video has an audio track.'}), 500
 
         out_name = Path(file.filename).stem + '.mp3'
         return send_file(out_path, as_attachment=True, download_name=out_name)
-
     except subprocess.TimeoutExpired:
         return jsonify({'error': 'Conversion timed out. Try a shorter video.'}), 500
     except Exception as e:
@@ -187,5 +184,5 @@ def _cleanup(*paths):
             pass
 
 if __name__ == '__main__':
-    port = int(os.environ.get('PORT', 5000))
+    port = int(os.environ.get('PORT', 8080))
     app.run(host='0.0.0.0', port=port)
