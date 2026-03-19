@@ -16,6 +16,14 @@ UPLOAD_FOLDER = tempfile.mkdtemp()
 def index():
     return app.send_static_file('index.html')
 
+@app.route('/sitemap.xml')
+def sitemap():
+    return app.send_static_file('sitemap.xml')
+
+@app.route('/robots.txt')
+def robots():
+    return app.send_static_file('robots.txt')
+
 # ── IMAGE CONVERSION (JPG ↔ PNG) ───────────────────────────────────────────
 @app.route('/convert/image', methods=['POST'])
 def convert_image():
