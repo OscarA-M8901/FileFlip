@@ -59,31 +59,39 @@ def convert_document():
     if ext not in ['.pdf', '.docx']:
         return jsonify({'error': 'Please upload a PDF or DOCX file.'}), 400
 
-    uid = str(uuid.uuid4())
-    input_path = os.path.join(UPLOAD_FOLDER, f'{uid}{ext}')
+    input_path = os.path.join(UPLOAD_FOLDER, f'{uuid.uuid4()}{ext}')
     file.save(input_path)
 
-    out_ext = 'docx' if ext == '.pdf' else 'pdf'
-    out_path = os.path.join(UPLOAD_FOLDER, f'{uid}.{out_ext}')
-
     try:
-        result = subprocess.run(
-            ['soffice', '--headless', '--convert-to', out_ext,
-             '--outdir', UPLOAD_FOLDER, input_path],
-            capture_output=True, text=True, timeout=120,
-            env={**os.environ, 'HOME': '/tmp', 'TMPDIR': '/tmp'}
-        )
+        if ext == '.pdf':
+            # PDF → DOCX using pdf2docx
+            from pdf2docx import Converter
+            out_path = os.path.join(UPLOAD_FOLDER, f'{uuid.uuid4()}.docx')
+            cv = Converter(input_path)
+            cv.convert(out_path, start=0, end=None)
+            cv.close()
+            out_name = Path(file.filename).stem + '.docx'
+        else:
+            # DOCX → PDF using LibreOffice
+            uid = str(uuid.uuid4())
+            out_path = os.path.join(UPLOAD_FOLDER, f'{uid}.pdf')
+            result = subprocess.run(
+                ['soffice', '--headless', '--convert-to', 'pdf',
+                 '--outdir', UPLOAD_FOLDER, input_path],
+                capture_output=True, text=True, timeout=120,
+                env={**os.environ, 'HOME': '/tmp', 'TMPDIR': '/tmp'}
+            )
+            expected = os.path.join(UPLOAD_FOLDER, Path(input_path).stem + '.pdf')
+            if result.returncode != 0 or not os.path.exists(expected):
+                return jsonify({'error': 'DOCX to PDF conversion failed.'}), 500
+            out_path = expected
+            out_name = Path(file.filename).stem + '.pdf'
 
-        app.logger.info(f"soffice stdout: {result.stdout}")
-        app.logger.info(f"soffice stderr: {result.stderr}")
+        if not os.path.exists(out_path):
+            return jsonify({'error': 'Conversion failed — output file not found.'}), 500
 
-        if result.returncode != 0 or not os.path.exists(out_path):
-            return jsonify({'error': f'Document conversion failed. {result.stderr[:200]}'}), 500
-
-        out_name = Path(file.filename).stem + f'.{out_ext}'
         return send_file(out_path, as_attachment=True, download_name=out_name)
-    except subprocess.TimeoutExpired:
-        return jsonify({'error': 'Conversion timed out. Try a smaller file.'}), 500
+
     except Exception as e:
         return jsonify({'error': f'Document conversion failed: {str(e)}'}), 500
     finally:
@@ -156,15 +164,12 @@ def convert_audio():
     try:
         result = subprocess.run(
             ['ffmpeg', '-i', input_path, '-vn',
-             '-acodec', 'libmp3lame', '-q:a', '2',
-             '-y', out_path],
+             '-acodec', 'libmp3lame', '-q:a', '2', '-y', out_path],
             capture_output=True, text=True, timeout=120
         )
 
-        app.logger.info(f"ffmpeg stderr: {result.stderr[-500:]}")
-
         if result.returncode != 0 or not os.path.exists(out_path):
-            return jsonify({'error': f'Audio extraction failed. Make sure your video has an audio track.'}), 500
+            return jsonify({'error': 'Audio extraction failed. Make sure your video has an audio track.'}), 500
 
         out_name = Path(file.filename).stem + '.mp3'
         return send_file(out_path, as_attachment=True, download_name=out_name)
