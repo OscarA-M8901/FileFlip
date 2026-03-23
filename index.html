@@ -1,0 +1,416 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>FileFlip — Free Online File Converter | JPG, PDF, MP3 & More</title>
+  <meta name="description" content="Convert files free online with no signup. Convert JPG to PNG, PDF to DOCX, PDF to JPG, MP4 to MP3 and more. Fast, secure and private — files deleted after download." />
+  <meta name="keywords" content="file converter, free file converter, jpg to png, pdf to docx, pdf to jpg, mp4 to mp3, online converter, convert files online, free converter no signup" />
+  <meta name="robots" content="index, follow" />
+  <link rel="canonical" href="https://fileflip.pro" />
+  <link rel="icon" type="image/x-icon" href="/favicon.ico" />
+  <link rel="icon" type="image/png" href="/favicon.png" />
+  <meta property="og:title" content="FileFlip — Free Online File Converter" />
+  <meta property="og:description" content="Convert JPG, PDF, DOCX, MP4 and more for free. No signup required. Files deleted after download." />
+  <meta property="og:url" content="https://fileflip.pro" />
+  <meta property="og:type" content="website" />
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"FileFlip","url":"https://fileflip.pro","description":"Free online file converter. No signup required.","applicationCategory":"UtilitiesApplication","operatingSystem":"Any","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"}}</script>
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1817561991339373" crossorigin="anonymous"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;1,400&family=Plus+Jakarta+Sans:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+    :root{
+      --sage:#7a9e7e;--sage-light:#9ab89e;--sage-dark:#5a7e5e;--sage-pale:#e8f0e9;--sage-ultra:#f2f7f2;--sage-muted:#c4d9c6;
+      --bg:#f7f8f5;--surface:#ffffff;--border:rgba(122,158,126,0.18);--border-strong:rgba(122,158,126,0.35);
+      --text:#2c2e2b;--text-secondary:#5a6358;--text-muted:#8a9688;
+      --shadow-sm:0 1px 4px rgba(90,126,94,0.08),0 0 0 1px rgba(122,158,126,0.06);
+      --shadow-md:0 4px 16px rgba(90,126,94,0.12),0 1px 4px rgba(0,0,0,0.04);
+      --shadow-lg:0 12px 40px rgba(90,126,94,0.15),0 2px 8px rgba(0,0,0,0.06);
+      --radius-sm:8px;--radius-md:14px;--radius-lg:20px;--radius-xl:28px;
+      --font-display:'Playfair Display',Georgia,serif;--font:'Plus Jakarta Sans',system-ui,sans-serif;
+      --t:0.22s cubic-bezier(0.4,0,0.2,1);
+    }
+    html{scroll-behavior:smooth}
+    body{font-family:var(--font);background:var(--bg);color:var(--text);min-height:100vh;line-height:1.6;overflow-x:hidden}
+    body::before{content:'';position:fixed;inset:0;background:radial-gradient(ellipse 80% 50% at 20% 0%,rgba(122,158,126,0.07) 0%,transparent 60%),radial-gradient(ellipse 60% 40% at 80% 100%,rgba(122,158,126,0.05) 0%,transparent 60%);pointer-events:none;z-index:0}
+
+    /* NAV */
+    nav{position:sticky;top:0;z-index:100;background:rgba(247,248,245,0.9);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border-bottom:1px solid var(--border);height:64px;display:flex;align-items:center;padding:0 2rem;gap:2rem}
+    .logo{display:flex;align-items:center;gap:10px;text-decoration:none;color:var(--text);font-weight:600;font-size:1.1rem;letter-spacing:-0.02em;flex-shrink:0}
+    .logo-mark{width:32px;height:32px;background:linear-gradient(135deg,var(--sage) 0%,var(--sage-dark) 100%);border-radius:9px;display:flex;align-items:center;justify-content:center;box-shadow:0 2px 8px rgba(90,126,94,0.3)}
+    .logo-mark svg{width:17px;height:17px;fill:none;stroke:white;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round}
+    .nav-center{flex:1;display:flex;justify-content:center}
+    .dropdown{position:relative}
+    .dropdown-trigger{display:flex;align-items:center;gap:6px;padding:8px 16px;background:var(--sage-pale);border:1px solid var(--border-strong);border-radius:40px;font-family:var(--font);font-size:0.875rem;font-weight:500;color:var(--sage-dark);cursor:pointer;transition:all var(--t);white-space:nowrap}
+    .dropdown-trigger:hover{background:var(--sage-muted);border-color:var(--sage)}
+    .dropdown-trigger svg{width:14px;height:14px;stroke:var(--sage-dark);transition:transform var(--t)}
+    .dropdown.open .dropdown-trigger svg{transform:rotate(180deg)}
+    .dropdown-menu{position:absolute;top:calc(100% + 10px);left:50%;transform:translateX(-50%) translateY(-8px);width:580px;background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-lg);box-shadow:var(--shadow-lg);padding:1.25rem;opacity:0;pointer-events:none;transition:opacity 0.2s ease,transform 0.2s ease;z-index:200}
+    .dropdown.open .dropdown-menu{opacity:1;pointer-events:all;transform:translateX(-50%) translateY(0)}
+    .dropdown-section-label{font-size:10px;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;color:var(--text-muted);padding:0 0.5rem;margin-bottom:0.5rem;margin-top:0.75rem}
+    .dropdown-section-label:first-child{margin-top:0}
+    .dropdown-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:4px}
+    .dropdown-item{display:flex;align-items:center;gap:8px;padding:8px 10px;border-radius:var(--radius-sm);text-decoration:none;color:var(--text-secondary);font-size:0.8rem;font-weight:500;transition:all var(--t)}
+    .dropdown-item:hover{background:var(--sage-pale);color:var(--sage-dark)}
+    .dropdown-item-icon{width:26px;height:26px;background:var(--sage-ultra);border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:13px;flex-shrink:0}
+    .nav-badge{font-size:11px;font-weight:500;color:var(--sage-dark);background:var(--sage-pale);padding:4px 10px;border-radius:20px;border:1px solid var(--border);white-space:nowrap}
+    .hamburger{display:none;flex-direction:column;gap:5px;cursor:pointer;padding:4px;margin-left:auto;background:none;border:none}
+    .hamburger span{display:block;width:22px;height:2px;background:var(--text);border-radius:2px;transition:all var(--t)}
+    .mobile-menu{display:none;position:fixed;top:64px;left:0;right:0;bottom:0;background:var(--surface);z-index:99;padding:1.5rem;overflow-y:auto}
+    .mobile-menu.open{display:block}
+
+    /* HERO */
+    .hero{position:relative;z-index:1;text-align:center;padding:5rem 2rem 3.5rem;max-width:700px;margin:0 auto}
+    .hero-eyebrow{display:inline-flex;align-items:center;gap:6px;font-size:0.78rem;font-weight:600;letter-spacing:0.06em;text-transform:uppercase;color:var(--sage);background:var(--sage-pale);border:1px solid var(--border-strong);padding:5px 14px;border-radius:20px;margin-bottom:1.5rem;animation:fadeUp 0.6s ease both}
+    .hero-eyebrow::before{content:'';width:6px;height:6px;background:var(--sage);border-radius:50%}
+    h1{font-family:var(--font-display);font-size:clamp(2.4rem,6vw,3.8rem);font-weight:500;letter-spacing:-0.02em;line-height:1.15;color:var(--text);margin-bottom:1.25rem;animation:fadeUp 0.6s 0.1s ease both}
+    h1 em{font-style:italic;color:var(--sage)}
+    .hero-sub{font-size:1.05rem;color:var(--text-secondary);font-weight:300;max-width:460px;margin:0 auto 2.5rem;animation:fadeUp 0.6s 0.2s ease both}
+
+    /* CONVERTER */
+    .converter-section{position:relative;z-index:1;max-width:720px;margin:0 auto;padding:0 1.5rem 2rem;animation:fadeUp 0.6s 0.3s ease both}
+    .converter-selector{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:1.5rem;justify-content:center}
+    .selector-btn{padding:7px 14px;border:1px solid var(--border);border-radius:30px;background:var(--surface);font-family:var(--font);font-size:0.8rem;font-weight:500;color:var(--text-secondary);cursor:pointer;transition:all var(--t);white-space:nowrap}
+    .selector-btn:hover{border-color:var(--sage);color:var(--sage-dark);background:var(--sage-pale)}
+    .selector-btn.active{background:var(--sage);border-color:var(--sage);color:white;box-shadow:0 2px 8px rgba(90,126,94,0.3)}
+    .upload-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-xl);padding:2rem;box-shadow:var(--shadow-md)}
+    .card-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:1.5rem}
+    .card-label{font-size:0.85rem;font-weight:600;color:var(--text-secondary);letter-spacing:-0.01em}
+    .format-badge{display:flex;align-items:center;gap:6px;font-size:0.8rem;font-weight:600;color:var(--sage-dark);background:var(--sage-pale);padding:4px 12px;border-radius:20px;border:1px solid var(--border-strong)}
+    .format-arrow{color:var(--sage-muted)}
+    .drop-zone{border:1.5px dashed var(--sage-muted);border-radius:var(--radius-lg);padding:3rem 2rem;text-align:center;cursor:pointer;transition:all var(--t);position:relative;background:var(--sage-ultra)}
+    .drop-zone:hover,.drop-zone.dragging{border-color:var(--sage);background:var(--sage-pale);transform:scale(1.005)}
+    .drop-zone input[type="file"]{position:absolute;inset:0;opacity:0;cursor:pointer;width:100%;height:100%}
+    .drop-icon-wrap{width:56px;height:56px;background:var(--surface);border-radius:16px;display:flex;align-items:center;justify-content:center;margin:0 auto 1rem;box-shadow:var(--shadow-sm);font-size:24px;transition:transform var(--t)}
+    .drop-zone:hover .drop-icon-wrap{transform:translateY(-3px)}
+    .drop-title{font-size:0.95rem;font-weight:600;color:var(--text);margin-bottom:0.3rem}
+    .drop-sub{font-size:0.8rem;color:var(--text-muted);font-weight:300}
+    .resize-fields{margin-top:1rem;display:none}
+    .resize-row{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+    .resize-row label{font-size:0.78rem;color:var(--text-secondary);font-weight:500;display:block;margin-bottom:5px}
+    .resize-row input{width:100%;padding:0.65rem 0.9rem;border:1px solid var(--border);border-radius:var(--radius-sm);font-family:var(--font);font-size:0.875rem;background:var(--surface);color:var(--text);transition:border-color var(--t);outline:none}
+    .resize-row input:focus{border-color:var(--sage)}
+    .resize-hint{font-size:0.75rem;color:var(--text-muted);margin-top:6px}
+    .file-selected{display:none;align-items:center;gap:12px;background:var(--sage-ultra);border:1px solid var(--border);border-radius:var(--radius-md);padding:0.875rem 1rem;margin-top:1rem}
+    .file-selected.visible{display:flex}
+    .file-thumb{width:38px;height:38px;background:var(--sage-pale);border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:17px;flex-shrink:0}
+    .file-info{flex:1;min-width:0}
+    .file-name{font-size:0.875rem;font-weight:500;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;color:var(--text)}
+    .file-size{font-size:0.75rem;color:var(--text-muted)}
+    .remove-btn{background:none;border:none;cursor:pointer;color:var(--text-muted);font-size:18px;line-height:1;padding:4px;border-radius:6px;transition:all var(--t)}
+    .remove-btn:hover{color:#c0392b;background:#fef0ef}
+    .progress-wrap{display:none;margin-top:1.25rem}
+    .progress-wrap.visible{display:block}
+    .progress-header{display:flex;justify-content:space-between;font-size:0.78rem;color:var(--text-secondary);margin-bottom:8px;font-weight:500}
+    .progress-track{height:5px;background:var(--sage-pale);border-radius:3px;overflow:hidden}
+    .progress-fill{height:100%;background:linear-gradient(90deg,var(--sage) 0%,var(--sage-light) 100%);border-radius:3px;width:0%;transition:width 0.3s ease}
+    .result-box{display:none;margin-top:1.25rem;background:#f0f9f1;border:1px solid #a8d5ac;border-radius:var(--radius-md);padding:1.5rem;text-align:center;animation:fadeUp 0.3s ease}
+    .result-box.visible{display:block}
+    .result-box.error{background:#fef8f7;border-color:#f5c0bc}
+    .result-icon{font-size:32px;margin-bottom:0.5rem}
+    .result-title{font-size:0.9rem;font-weight:600;color:#2d7a35;margin-bottom:1rem}
+    .result-box.error .result-title{color:#c0392b}
+    .download-btn{display:inline-flex;align-items:center;gap:8px;padding:0.75rem 1.75rem;background:linear-gradient(135deg,var(--sage) 0%,var(--sage-dark) 100%);color:white;border:none;border-radius:30px;font-family:var(--font);font-size:0.875rem;font-weight:600;cursor:pointer;text-decoration:none;box-shadow:0 4px 12px rgba(90,126,94,0.35);transition:all var(--t)}
+    .download-btn:hover{transform:translateY(-1px);box-shadow:0 6px 18px rgba(90,126,94,0.4)}
+    .convert-btn{width:100%;margin-top:1.25rem;padding:1rem;background:linear-gradient(135deg,var(--sage) 0%,var(--sage-dark) 100%);color:white;border:none;border-radius:30px;font-family:var(--font);font-size:0.95rem;font-weight:600;cursor:pointer;letter-spacing:-0.01em;box-shadow:0 4px 14px rgba(90,126,94,0.35);transition:all var(--t);position:relative;overflow:hidden}
+    .convert-btn:hover:not(:disabled){transform:translateY(-1px);box-shadow:0 6px 20px rgba(90,126,94,0.4)}
+    .convert-btn:active:not(:disabled){transform:scale(0.99)}
+    .convert-btn:disabled{background:var(--sage-muted);box-shadow:none;cursor:not-allowed;opacity:0.7}
+
+    /* HOW IT WORKS */
+    .how-section{position:relative;z-index:1;max-width:900px;margin:3rem auto 0;padding:0 1.5rem 6rem}
+    .section-eyebrow{font-size:10px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:var(--sage);text-align:center;margin-bottom:0.75rem}
+    .section-title{font-family:var(--font-display);font-size:1.6rem;font-weight:500;text-align:center;letter-spacing:-0.02em;color:var(--text);margin-bottom:2.5rem}
+    .steps-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:1rem}
+    .step-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-lg);padding:1.5rem;transition:all var(--t)}
+    .step-card:hover{border-color:var(--sage-muted);box-shadow:var(--shadow-sm);transform:translateY(-2px)}
+    .step-num{font-size:10px;font-weight:700;letter-spacing:0.08em;color:var(--sage);margin-bottom:0.75rem}
+    .step-card h3{font-size:0.9rem;font-weight:600;letter-spacing:-0.01em;margin-bottom:0.4rem;color:var(--text)}
+    .step-card p{font-size:0.82rem;color:var(--text-muted);font-weight:300;line-height:1.5}
+
+    /* FOOTER */
+    footer{border-top:1px solid var(--border);background:var(--surface);text-align:center;padding:2rem;font-size:0.8rem;color:var(--text-muted);position:relative;z-index:1}
+    footer strong{color:var(--text-secondary);font-weight:600}
+    footer a{color:var(--text-muted);text-decoration:none;margin:0 0.75rem}
+    footer a:hover{color:var(--sage)}
+
+    /* ANIMATIONS */
+    @keyframes fadeUp{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:translateY(0)}}
+    @keyframes spin{to{transform:rotate(360deg)}}
+    .spinner{display:inline-block;width:15px;height:15px;border:2px solid rgba(255,255,255,0.35);border-top-color:white;border-radius:50%;animation:spin 0.7s linear infinite;vertical-align:middle;margin-right:7px}
+
+    /* RESPONSIVE */
+    @media(max-width:640px){
+      nav{padding:0 1rem;gap:1rem}
+      .nav-center{display:none}
+      .nav-badge{display:none}
+      .hamburger{display:flex}
+      .hero{padding:3rem 1.5rem 2rem}
+      .upload-card{padding:1.25rem}
+      .converter-selector{gap:6px}
+      .selector-btn{font-size:0.75rem;padding:6px 11px}
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <a href="/" class="logo">
+    <div class="logo-mark">
+      <svg viewBox="0 0 20 20"><path d="M4 3h8l4 4v10H4V3z"/><path d="M12 3v4h4M7 9h7M7 12h5M7 15h4"/></svg>
+    </div>
+    FileFlip
+  </a>
+
+  <div class="nav-center">
+    <div class="dropdown" id="navDropdown">
+      <button class="dropdown-trigger" onclick="toggleDropdown()">
+        All Converters
+        <svg viewBox="0 0 16 16" fill="none" stroke-width="2" stroke-linecap="round"><path d="M4 6l4 4 4-4"/></svg>
+      </button>
+      <div class="dropdown-menu">
+        <div class="dropdown-section-label">Images</div>
+        <div class="dropdown-grid">
+          <a href="/jpg-to-png" class="dropdown-item"><div class="dropdown-item-icon">🖼️</div>JPG to PNG</a>
+          <a href="/png-to-jpg" class="dropdown-item"><div class="dropdown-item-icon">🖼️</div>PNG to JPG</a>
+          <a href="/webp-to-jpg" class="dropdown-item"><div class="dropdown-item-icon">🖼️</div>WEBP to JPG</a>
+          <a href="/heic-to-jpg" class="dropdown-item"><div class="dropdown-item-icon">📱</div>HEIC to JPG</a>
+          <a href="/image-to-pdf" class="dropdown-item"><div class="dropdown-item-icon">📑</div>Image to PDF</a>
+          <a href="/png-to-pdf" class="dropdown-item"><div class="dropdown-item-icon">📑</div>PNG to PDF</a>
+        </div>
+        <div class="dropdown-section-label">Documents</div>
+        <div class="dropdown-grid">
+          <a href="/pdf-to-docx" class="dropdown-item"><div class="dropdown-item-icon">📄</div>PDF to Word</a>
+          <a href="/docx-to-pdf" class="dropdown-item"><div class="dropdown-item-icon">📄</div>Word to PDF</a>
+          <a href="/pdf-to-jpg" class="dropdown-item"><div class="dropdown-item-icon">📑</div>PDF to JPG</a>
+        </div>
+        <div class="dropdown-section-label">Video & Audio</div>
+        <div class="dropdown-grid">
+          <a href="/mp4-to-mp3" class="dropdown-item"><div class="dropdown-item-icon">🎵</div>MP4 to MP3</a>
+          <a href="/mov-to-mp4" class="dropdown-item"><div class="dropdown-item-icon">🎬</div>MOV to MP4</a>
+          <a href="/mp4-to-gif" class="dropdown-item"><div class="dropdown-item-icon">🎬</div>MP4 to GIF</a>
+          <a href="/gif-to-mp4" class="dropdown-item"><div class="dropdown-item-icon">🎞️</div>GIF to MP4</a>
+        </div>
+        <div class="dropdown-section-label">Tools</div>
+        <div class="dropdown-grid">
+          <a href="/image-resizer" class="dropdown-item"><div class="dropdown-item-icon">📐</div>Image Resizer</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <span class="nav-badge">Free · No signup</span>
+  <button class="hamburger" id="hamburger" onclick="toggleMobile()">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<div class="mobile-menu" id="mobileMenu">
+  <div class="dropdown-section-label" style="margin-top:0">Images</div>
+  <a href="/jpg-to-png" class="dropdown-item">🖼️ JPG to PNG</a>
+  <a href="/png-to-jpg" class="dropdown-item">🖼️ PNG to JPG</a>
+  <a href="/webp-to-jpg" class="dropdown-item">🖼️ WEBP to JPG</a>
+  <a href="/heic-to-jpg" class="dropdown-item">📱 HEIC to JPG</a>
+  <a href="/image-to-pdf" class="dropdown-item">📑 Image to PDF</a>
+  <a href="/png-to-pdf" class="dropdown-item">📑 PNG to PDF</a>
+  <div class="dropdown-section-label">Documents</div>
+  <a href="/pdf-to-docx" class="dropdown-item">📄 PDF to Word</a>
+  <a href="/docx-to-pdf" class="dropdown-item">📄 Word to PDF</a>
+  <a href="/pdf-to-jpg" class="dropdown-item">📑 PDF to JPG</a>
+  <div class="dropdown-section-label">Video & Audio</div>
+  <a href="/mp4-to-mp3" class="dropdown-item">🎵 MP4 to MP3</a>
+  <a href="/mov-to-mp4" class="dropdown-item">🎬 MOV to MP4</a>
+  <a href="/mp4-to-gif" class="dropdown-item">🎬 MP4 to GIF</a>
+  <a href="/gif-to-mp4" class="dropdown-item">🎞️ GIF to MP4</a>
+  <div class="dropdown-section-label">Tools</div>
+  <a href="/image-resizer" class="dropdown-item">📐 Image Resizer</a>
+</div>
+
+<section class="hero">
+  <div class="hero-eyebrow">Free · Fast · Private</div>
+  <h1>Convert any file,<br /><em>beautifully.</em></h1>
+  <p class="hero-sub">12 conversion tools in one place. No signup, no watermarks — your files are deleted the moment you download.</p>
+</section>
+
+<div class="converter-section">
+  <div class="converter-selector">
+    <button class="selector-btn active" onclick="selectConverter(this,'jpg-png')">JPG ↔ PNG</button>
+    <button class="selector-btn" onclick="selectConverter(this,'image-pdf')">Image → PDF</button>
+    <button class="selector-btn" onclick="selectConverter(this,'heic-jpg')">HEIC → JPG</button>
+    <button class="selector-btn" onclick="selectConverter(this,'webp-jpg')">WEBP → JPG</button>
+    <button class="selector-btn" onclick="selectConverter(this,'png-pdf')">PNG → PDF</button>
+    <button class="selector-btn" onclick="selectConverter(this,'pdf-docx')">PDF ↔ DOCX</button>
+    <button class="selector-btn" onclick="selectConverter(this,'pdf-jpg')">PDF → JPG</button>
+    <button class="selector-btn" onclick="selectConverter(this,'mp4-mp3')">MP4 → MP3</button>
+    <button class="selector-btn" onclick="selectConverter(this,'mov-mp4')">MOV → MP4</button>
+    <button class="selector-btn" onclick="selectConverter(this,'mp4-gif')">MP4 → GIF</button>
+    <button class="selector-btn" onclick="selectConverter(this,'gif-mp4')">GIF → MP4</button>
+    <button class="selector-btn" onclick="selectConverter(this,'resize')">Resize Image</button>
+  </div>
+
+  <div class="upload-card">
+    <div class="card-header">
+      <span class="card-label">Convert your file</span>
+      <span class="format-badge"><span id="fromFmt">JPG</span><span class="format-arrow">→</span><span id="toFmt">PNG</span></span>
+    </div>
+
+    <div class="drop-zone" id="dropZone">
+      <input type="file" id="fileInput" accept=".jpg,.jpeg,.png" onchange="handleFileSelect(event)" />
+      <div class="drop-icon-wrap">📁</div>
+      <div class="drop-title">Drop your file here or click to browse</div>
+      <div class="drop-sub" id="acceptHint">Accepts .jpg, .jpeg, .png</div>
+    </div>
+
+    <div class="resize-fields" id="resizeFields">
+      <div class="resize-row">
+        <div><label>Width (px)</label><input type="number" id="resizeWidth" placeholder="e.g. 1920" min="1" max="10000" /></div>
+        <div><label>Height (px)</label><input type="number" id="resizeHeight" placeholder="e.g. 1080" min="1" max="10000" /></div>
+      </div>
+      <p class="resize-hint">Leave one blank to maintain aspect ratio.</p>
+    </div>
+
+    <div class="file-selected" id="fileSelected">
+      <div class="file-thumb">📎</div>
+      <div class="file-info">
+        <div class="file-name" id="fileName">—</div>
+        <div class="file-size" id="fileSize">—</div>
+      </div>
+      <button class="remove-btn" onclick="clearFile()">✕</button>
+    </div>
+
+    <div class="progress-wrap" id="progressWrap">
+      <div class="progress-header"><span id="progressLabel">Converting…</span><span id="progressPct">0%</span></div>
+      <div class="progress-track"><div class="progress-fill" id="progressFill"></div></div>
+    </div>
+
+    <div class="result-box" id="resultBox">
+      <div class="result-icon" id="resultIcon">✅</div>
+      <div class="result-title" id="resultTitle">Conversion complete!</div>
+      <a class="download-btn" id="downloadBtn" href="#" download>⬇ Download file</a>
+    </div>
+
+    <button class="convert-btn" id="convertBtn" onclick="startConversion()" disabled>Convert file</button>
+  </div>
+</div>
+
+<div class="how-section">
+  <div class="section-eyebrow">Simple process</div>
+  <div class="section-title">Ready in seconds</div>
+  <div class="steps-grid" style="grid-template-columns: repeat(3, 1fr);">
+    <div class="step-card"><div class="step-num">01</div><h3>Pick a format</h3><p>Choose from 12 conversion types using the selector above.</p></div>
+    <div class="step-card"><div class="step-num">02</div><h3>Upload your file</h3><p>Drag and drop or click to browse. Up to 50MB supported.</p></div>
+    <div class="step-card"><div class="step-num">03</div><h3>Download instantly</h3><p>Your converted file is ready in seconds. No email needed.</p></div>
+    <div class="step-card" style="grid-column: 2;"><div class="step-num">04</div><h3>Files auto-deleted</h3><p>All uploaded files are permanently deleted after download.</p></div>
+  </div>
+</div>
+
+<footer>
+  <strong>FileFlip.pro</strong> — Free file conversion. No account needed. Files deleted after download.<br /><br />
+  <a href="/about">About</a>
+  <a href="/privacy">Privacy Policy</a>
+</footer>
+
+<script>
+  const converters={
+    'jpg-png':{from:'JPG',to:'PNG',accept:'.jpg,.jpeg,.png',hint:'Accepts .jpg, .jpeg, .png',endpoint:'/convert/image',resize:false},
+    'image-pdf':{from:'Image',to:'PDF',accept:'.jpg,.jpeg,.png,.webp',hint:'Accepts .jpg, .png, .webp',endpoint:'/convert/image-to-pdf',resize:false},
+    'heic-jpg':{from:'HEIC',to:'JPG',accept:'.heic,.heif',hint:'Accepts .heic, .heif',endpoint:'/convert/heic-to-jpg',resize:false},
+    'webp-jpg':{from:'WEBP',to:'JPG',accept:'.webp,.png,.gif',hint:'Accepts .webp, .png, .gif',endpoint:'/convert/webp-to-jpg',resize:false},
+    'png-pdf':{from:'PNG',to:'PDF',accept:'.png,.jpg,.jpeg,.webp',hint:'Accepts .png, .jpg, .webp',endpoint:'/convert/png-to-pdf',resize:false},
+    'pdf-docx':{from:'PDF',to:'DOCX',accept:'.pdf,.docx',hint:'Accepts .pdf, .docx',endpoint:'/convert/document',resize:false},
+    'pdf-jpg':{from:'PDF',to:'JPG',accept:'.pdf',hint:'Accepts .pdf',endpoint:'/convert/pdf-to-jpg',resize:false},
+    'mp4-mp3':{from:'MP4',to:'MP3',accept:'.mp4,.mov,.avi,.mkv',hint:'Accepts .mp4, .mov, .avi, .mkv',endpoint:'/convert/audio',resize:false},
+    'mov-mp4':{from:'MOV',to:'MP4',accept:'.mov,.avi,.mkv,.webm,.flv',hint:'Accepts .mov, .avi, .mkv, .webm',endpoint:'/convert/mov-to-mp4',resize:false},
+    'mp4-gif':{from:'MP4',to:'GIF',accept:'.mp4,.mov,.avi,.mkv,.webm',hint:'Accepts .mp4, .mov, .avi, .mkv',endpoint:'/convert/mp4-to-gif',resize:false},
+    'gif-mp4':{from:'GIF',to:'MP4',accept:'.gif',hint:'Accepts .gif',endpoint:'/convert/gif-to-mp4',resize:false},
+    'resize':{from:'Image',to:'Resized',accept:'.jpg,.jpeg,.png,.webp',hint:'Accepts .jpg, .png, .webp',endpoint:'/convert/resize',resize:true},
+  };
+  let active='jpg-png',selectedFile=null;
+
+  function selectConverter(btn,key){
+    document.querySelectorAll('.selector-btn').forEach(b=>b.classList.remove('active'));
+    btn.classList.add('active');active=key;
+    const cfg=converters[key];
+    document.getElementById('fromFmt').textContent=cfg.from;
+    document.getElementById('toFmt').textContent=cfg.to;
+    document.getElementById('fileInput').accept=cfg.accept;
+    document.getElementById('acceptHint').textContent=cfg.hint;
+    document.getElementById('resizeFields').style.display=cfg.resize?'block':'none';
+    clearFile();resetResult();
+  }
+
+  function handleFileSelect(e){
+    const file=e.target.files[0];if(!file)return;
+    selectedFile=file;
+    document.getElementById('fileName').textContent=file.name;
+    document.getElementById('fileSize').textContent=formatSize(file.size);
+    document.getElementById('fileSelected').classList.add('visible');
+    document.getElementById('convertBtn').disabled=false;resetResult();
+  }
+
+  function clearFile(){
+    selectedFile=null;document.getElementById('fileInput').value='';
+    document.getElementById('fileSelected').classList.remove('visible');
+    document.getElementById('convertBtn').disabled=true;resetResult();
+  }
+
+  function resetResult(){
+    document.getElementById('resultBox').classList.remove('visible','error');
+    document.getElementById('progressWrap').classList.remove('visible');
+    document.getElementById('progressFill').style.width='0%';
+    const b=document.getElementById('downloadBtn');b.href='#';b.removeAttribute('download');
+  }
+
+  function formatSize(b){if(b<1024)return b+' B';if(b<1048576)return(b/1024).toFixed(1)+' KB';return(b/1048576).toFixed(1)+' MB';}
+
+  async function startConversion(){
+    if(!selectedFile)return;
+    const cfg=converters[active];
+    if(cfg.resize){const w=parseInt(document.getElementById('resizeWidth').value||0),h=parseInt(document.getElementById('resizeHeight').value||0);if(!w&&!h){alert('Please enter a width or height.');return;}}
+    const btn=document.getElementById('convertBtn');
+    btn.disabled=true;btn.innerHTML='<span class="spinner"></span>Converting…';
+    resetResult();
+    const pw=document.getElementById('progressWrap'),pf=document.getElementById('progressFill'),pp=document.getElementById('progressPct'),pl=document.getElementById('progressLabel');
+    pw.classList.add('visible');pl.textContent='Uploading…';
+    let prog=0;
+    const iv=setInterval(()=>{prog=Math.min(prog+Math.random()*10,85);pf.style.width=prog+'%';pp.textContent=Math.round(prog)+'%';if(prog>30)pl.textContent='Converting…';if(prog>70)pl.textContent='Finalising…';},200);
+    const fd=new FormData();fd.append('file',selectedFile);
+    if(cfg.resize){const w=document.getElementById('resizeWidth').value,h=document.getElementById('resizeHeight').value;if(w)fd.append('width',w);if(h)fd.append('height',h);}
+    try{
+      const res=await fetch(cfg.endpoint,{method:'POST',body:fd});clearInterval(iv);
+      if(!res.ok){const err=await res.json().catch(()=>({error:'Conversion failed.'}));throw new Error(err.error||'Server error.');}
+      pf.style.width='100%';pp.textContent='100%';pl.textContent='Done!';
+      const blob=await res.blob();
+      const cd=res.headers.get('Content-Disposition')||'';
+      const nm=cd.match(/filename="?([^"]+)"?/);
+      const url=URL.createObjectURL(blob);
+      const db=document.getElementById('downloadBtn');db.href=url;db.download=nm?nm[1]:'converted_file';
+      document.getElementById('resultIcon').textContent='✅';
+      document.getElementById('resultTitle').textContent='Conversion complete!';
+      document.getElementById('resultBox').classList.remove('error');
+      document.getElementById('resultBox').classList.add('visible');
+    }catch(err){
+      clearInterval(iv);
+      document.getElementById('resultIcon').textContent='❌';
+      document.getElementById('resultTitle').textContent=err.message||'Something went wrong.';
+      document.getElementById('resultBox').classList.add('visible','error');
+    }
+    btn.disabled=false;btn.innerHTML='Convert another file';
+  }
+
+  function toggleDropdown(){document.getElementById('navDropdown').classList.toggle('open');}
+  document.addEventListener('click',e=>{const dd=document.getElementById('navDropdown');if(!dd.contains(e.target))dd.classList.remove('open');});
+  function toggleMobile(){document.getElementById('mobileMenu').classList.toggle('open');}
+
+  const dz=document.getElementById('dropZone');
+  dz.addEventListener('dragover',e=>{e.preventDefault();dz.classList.add('dragging');});
+  dz.addEventListener('dragleave',()=>dz.classList.remove('dragging'));
+  dz.addEventListener('drop',e=>{
+    e.preventDefault();dz.classList.remove('dragging');
+    const file=e.dataTransfer.files[0];
+    if(file){selectedFile=file;document.getElementById('fileName').textContent=file.name;document.getElementById('fileSize').textContent=formatSize(file.size);document.getElementById('fileSelected').classList.add('visible');document.getElementById('convertBtn').disabled=false;resetResult();}
+  });
+</script>
+</body>
+</html>
