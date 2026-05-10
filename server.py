@@ -115,7 +115,7 @@ def image_to_pdf():
     finally:
         _cleanup(input_path)
 
-# ── HEIC TO JPG ─────────────────────────────────────────────────────────────
+# — HEIC TO JPG ————————————————————————————————————————
 @app.route('/convert/heic-to-jpg', methods=['POST'])
 def heic_to_jpg():
     file = request.files.get('file')
@@ -125,12 +125,19 @@ def heic_to_jpg():
     if ext not in ['.heic', '.heif']:
         return jsonify({'error': 'Please upload a HEIC or HEIF file.'}), 400
     input_path = os.path.join(UPLOAD_FOLDER, f'{uuid.uuid4()}{ext}')
-    file.save(input_path)
     out_path = os.path.join(UPLOAD_FOLDER, f'{uuid.uuid4()}.jpg')
+    file.save(input_path)
     try:
         import pillow_heif
         pillow_heif.register_heif_opener()
-        img = Image.open(input_path).convert('RGB')
+        heif_file = pillow_heif.read_heif(input_path)
+        img = Image.frombytes(
+            heif_file.mode,
+            heif_file.size,
+            heif_file.data,
+            "raw",
+        )
+        img = img.convert('RGB')
         img.save(out_path, 'JPEG', quality=92)
         out_name = Path(file.filename).stem + '.jpg'
         return send_file(out_path, as_attachment=True, download_name=out_name)
