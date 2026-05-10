@@ -128,17 +128,17 @@ def heic_to_jpg():
     out_path = os.path.join(UPLOAD_FOLDER, f'{uuid.uuid4()}.jpg')
     file.save(input_path)
     try:
-        import pillow_heif
-        pillow_heif.register_heif_opener()
-        heif_file = pillow_heif.read_heif(input_path)
-        img = Image.frombytes(
-            heif_file.mode,
-            heif_file.size,
-            heif_file.data,
-            "raw",
+        result = subprocess.run(
+            ['convert', input_path, '-quality', '92', out_path],
+            capture_output=True, text=True, timeout=60
         )
-        img = img.convert('RGB')
-        img.save(out_path, 'JPEG', quality=92)
+        if result.returncode != 0 or not os.path.exists(out_path):
+            import pillow_heif
+            pillow_heif.register_heif_opener()
+            heif_file = pillow_heif.open_heif(input_path, convert_hdr_to_8bit=True)
+            img = Image.frombytes(heif_file.mode, heif_file.size, heif_file.data)
+            img = img.convert('RGB')
+            img.save(out_path, 'JPEG', quality=92)
         out_name = Path(file.filename).stem + '.jpg'
         return send_file(out_path, as_attachment=True, download_name=out_name)
     except Exception as e:
